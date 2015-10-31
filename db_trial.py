@@ -24,17 +24,17 @@ except:
 # run successfuly inserted them
 # 
 
-record = { "type": "dated_memo", 
-           "date":  arrow.utcnow().naive,
-           "text": "This is a sample memo"
-          }
-collection.insert(record)
+# record = { "type": "dated_memo", 
+#            "date":  arrow.utcnow().naive,
+#            "text": "This is a sample memo"
+#           }
+# collection.insert(record)
 
-record = { "type": "dated_memo", 
-           "date":  arrow.utcnow().replace(days=+1).naive,
-           "text": "Sample one day later"
-          }
-collection.insert(record)
+# record = { "type": "dated_memo", 
+#            "date":  arrow.utcnow().replace(days=+1).naive,
+#            "text": "Sample one day later"
+#           }
+# collection.insert(record)
 
 #
 # Read database --- May be useful to see what is in there,
