@@ -65,10 +65,19 @@ def index():
 
 
 # We don't have an interface for creating memos yet
-# @app.route("/create")
-# def create():
-#     app.logger.debug("Create")
-#     return flask.render_template('create.html')
+@app.route("/create")
+def create():
+    app.logger.debug("Create")
+    return flask.render_template('create.html')
+
+@app.route('/_send_post', methods=['POST'])
+def grab_json():
+    app.logger.debug("Got a JSON request");
+    date =  request.form['datef'];
+    memo = request.form['memof'];
+
+    put_memo(format_arrow_date(date), memo)
+
 
 
 @app.errorhandler(404)
@@ -85,13 +94,13 @@ def page_not_found(error):
 #################
 
 # NOT TESTED with this application; may need revision 
-#@app.template_filter( 'fmtdate' )
-# def format_arrow_date( date ):
-#     try: 
-#         normal = arrow.get( date )
-#         return normal.to('local').format("ddd MM/DD/YYYY")
-#     except:
-#         return "(bad date)"
+@app.template_filter( 'fmtdate' )
+def format_arrow_date( date ):
+    try: 
+        normal = arrow.get( date, 'MM/DD/YYYY' )
+        return normal.to('utc').naive
+    except:
+        return "(bad date)"
 
 @app.template_filter( 'humanize' )
 def humanize_arrow_date( date ):
@@ -132,21 +141,25 @@ def get_memos():
         records.append(record)
     return records 
 
+def put_memo(dt, mem):
+    """
+    Place memo into database
+    Args:
+       dt: Datetime (arrow) object
+       mem: Text of memo
+    NOT TESTED YET
+    """
+    # record = { "type": "dated_memo", 
+    #            "date": dt.to('utc').naive,
+    #            "text": mem
+    #         }
 
-# def put_memo(dt, mem):
-#     """
-#     Place memo into database
-#     Args:
-#        dt: Datetime (arrow) object
-#        mem: Text of memo
-#     NOT TESTED YET
-#     """
-#     record = { "type": "dated_memo", 
-#                "date": dt.to('utc').naive,
-#                "text": mem
-#             }
-#     collection.insert(record)
-#     return 
+    record = { "type": "dated_memo", 
+           "date": dt,
+           "text": mem
+        }
+    collection.insert(record)
+    return 
 
 
 if __name__ == "__main__":
