@@ -13,8 +13,4 @@ import random
 ### On ix.cs.uoregon.edu (Michal Young's instance of MongoDB)
 PORT=random.randint(5000,8000)
 DEBUG = False # Because it's unsafe to run outside localhost
-MONGO_URL =  "mongodb://memo:password@ix.cs.uoregon.edu:4846/memos"  # on ix
-
-
-## ttb:password
-## memo:password
+MONGO_URL =  "mongodb://writer:insert@ix.cs.uoregon.edu:4273/memos"  # on ix
