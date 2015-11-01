@@ -53,7 +53,6 @@ app.secret_key = str(uuid.uuid4())
 ###
 # Pages
 ###
-
 @app.route("/")
 @app.route("/index")
 def index():
@@ -78,8 +77,6 @@ def grab_json():
 
     put_memo(format_arrow_date(date), memo)
 
-
-
 @app.errorhandler(404)
 def page_not_found(error):
     app.logger.debug("Page not found")
@@ -92,8 +89,6 @@ def page_not_found(error):
 # Functions used within the templates
 #
 #################
-
-# NOT TESTED with this application; may need revision 
 @app.template_filter( 'fmtdate' )
 def format_arrow_date( date ):
     try: 
@@ -135,7 +130,8 @@ def get_memos():
     can be inserted directly in the 'session' object.
     """
     records = [ ]
-    for record in collection.find( { "type": "dated_memo" } ):
+
+    for record in collection.find( { "type": "dated_memo" } ).sort("date", 1):
         record['date'] = arrow.get(record['date']).isoformat()
         del record['_id']
         records.append(record)
@@ -147,13 +143,7 @@ def put_memo(dt, mem):
     Args:
        dt: Datetime (arrow) object
        mem: Text of memo
-    NOT TESTED YET
     """
-    # record = { "type": "dated_memo", 
-    #            "date": dt.to('utc').naive,
-    #            "text": mem
-    #         }
-
     record = { "type": "dated_memo", 
            "date": dt,
            "text": mem
