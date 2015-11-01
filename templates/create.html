@@ -10,6 +10,10 @@
      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
   </script>
 
+  <script
+     src="static/script.js">
+  </script>
+
   <!-- Bootstrap includes javascript and css  (must follow jquery) -->
   <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -37,18 +41,16 @@
   {% endif %}
 {% endwith %}
 
-<form method="PUT" action="_create">
-<div class="row">
-    <div class="col-md-2">
-    <input type="text" class="form-control"
-     name="Date" value=""/>
-  </div>
-  <div class="col-md-10">
-    <input type="text" class="form-control"
-      name="Memo" value="Memo" />
-  </div>
- </div>
-</form>
+
+<form class="form-signin" action="/create" method="post" role="form">
+             Date
+             <input type="date" name="datef" class="form-control" placeholder="MM/DD/YYYY" required autofocus>
+             <br />
+             Memo
+             <input type="text" name="memof" class="form-control" placeholder="Insert memo here" required>
+             <br />
+             <button class="btn btn-lg btn-primary btn-block" type="button">Submit </button>
+         </form>
 </div> 
 </body>
 </html>
