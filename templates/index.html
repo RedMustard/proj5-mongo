@@ -48,6 +48,23 @@
   <div class="col-md-10">
     {{ memo.text }}
   </div>
+  <div class="col-md-2">
+  <!-- <a href="/_delete" >Delete</a> -->
+  <form>
+  <button class="btn btn-sm btn-primary btn-block" type="button" name="Delete" >Delete</button>
+  <br />
+  </form>
+  <script>
+    input(type="button", onclick="deleteItem({memo._id})")
+
+    function deleteItem(theID)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "DELETE", '/form/'+ theID, false );
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+  </script>
   </div> <!-- row -->
   </div> <!-- memo -->
   {% endfor %}
@@ -56,7 +73,9 @@
 {% endif %}
 
  
-
+<div class="row">
+  <a href="/create" target="_new">Create a new memo.</a>
+</div>
 </div> <!-- container -->
 </body>
 </html>
