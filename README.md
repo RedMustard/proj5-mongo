@@ -1,4 +1,7 @@
-# proj5-mongo
+## URL on ix
+ix.cs.uoregon.edu:5942
+
+## proj5-mongo
 Simple list of dated memos kept in MongoDB database
 
 ## What is here
