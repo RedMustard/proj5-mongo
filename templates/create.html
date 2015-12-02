@@ -4,11 +4,14 @@
 
   <!-- 'viewport' is used by bootstrap to respond to device size -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  
   <!-- Javascript:  JQuery from a content distribution network (CDN) -->
   <script
      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
   </script>
+
+<!-- Javascript Masked Input -->
+  <script src="https://raw.githubusercontent.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js" type="text/javascript"></script>
 
   <script
      src="static/script.js">
@@ -42,15 +45,22 @@
 {% endwith %}
 
 
-<form class="form-signin" action="/create" method="post" role="form">
-             Date
-             <input type="date" name="datef" class="form-control" placeholder="MM/DD/YYYY" required autofocus>
+<form class="form-signin" action="/index" method="post" role="form">
+             Date (MM/DD/YYYY)
+             <input type="date" name="datef" id="datef" class="form-control" placeholder="MM/DD/YYYY" required autofocus>
              <br />
              Memo
              <input type="text" name="memof" class="form-control" placeholder="Insert memo here" required>
              <br />
              <button class="btn btn-lg btn-primary btn-block" type="button">Submit </button>
-         </form>
+
+            <script type="text/javascript">
+            jQuery(function($){
+               $("#datef").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});
+            });
+            </script>
+
+</form>
 </div> 
 </body>
 </html>

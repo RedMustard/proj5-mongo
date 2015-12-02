@@ -144,6 +144,7 @@ def put_memo(dt, mem):
        dt: Datetime (arrow) object
        mem: Text of memo
     """
+    print("put mem")
     record = { "type": "dated_memo", 
            "date": dt,
            "text": mem
@@ -151,6 +152,16 @@ def put_memo(dt, mem):
     collection.insert(record)
     return 
 
+@app.route('/deletememo', methods=['GET', 'POST'])
+def delete_memo():
+    """
+    """
+    print("Deleting memo")
+    memo_id = request.args.get('MemoID')
+    print(memo_id)
+    collection.remove(memo_id)
+    
+    return flask.redirect(flask.url_for("index"))
 
 if __name__ == "__main__":
     # App is created above so that it will

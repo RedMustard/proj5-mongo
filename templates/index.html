@@ -37,7 +37,7 @@
 {% endwith %}
 
 <h1>Memos</h1>
-
+<form action="/deletememo" method="post">
 {% if session.memos %}
     {% for memo in session.memos %}
   <div class="memo">
@@ -47,30 +47,22 @@
   </div>
   <div class="col-md-10">
     {{ memo.text }}
+    {{ memo.num }}
   </div>
   <div class="col-md-2">
   <!-- <a href="/_delete" >Delete</a> -->
-  <form>
-  <button class="btn btn-sm btn-primary btn-block" type="button" name="Delete" >Delete</button>
+  
+  <button class="btn btn-sm btn-primary btn-block" type="submit" name="MemoID" value="{{memo.text}}">Delete {{memo.text}} </button>
   <br />
-  </form>
-  <script>
-    input(type="button", onclick="deleteItem({memo._id})")
-
-    function deleteItem(theID)
-    {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "DELETE", '/form/'+ theID, false );
-        xmlHttp.send( null );
-        return xmlHttp.responseText;
-    }
-  </script>
+  
+  
   </div> <!-- row -->
   </div> <!-- memo -->
   {% endfor %}
 {% else %}
   <p>No memos for you. </p>  
 {% endif %}
+</form>
 
  
 <div class="row">
