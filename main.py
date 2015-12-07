@@ -76,6 +76,7 @@ def grab_json():
     memo = request.form['memof'];
 
     put_memo(format_arrow_date(date), memo)
+    return flask.render_template('index.html')
 
 @app.errorhandler(404)
 def page_not_found(error):
