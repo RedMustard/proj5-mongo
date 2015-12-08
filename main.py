@@ -69,14 +69,16 @@ def create():
     app.logger.debug("Create")
     return flask.render_template('create.html')
 
-@app.route('/_send_post', methods=['POST'])
+@app.route('/_send_post', methods=['GET', 'POST'])
 def grab_json():
-    app.logger.debug("Got a JSON request");
-    date =  request.form['datef'];
-    memo = request.form['memof'];
+    if request.method == "GET":
+        app.logger.debug("Got a JSON request");
+        date =  request.args.get('datef');
+        memo = request.args.get('memof');
 
-    put_memo(format_arrow_date(date), memo)
-    return flask.render_template('index.html')
+        put_memo(format_arrow_date(date), memo)
+
+    return flask.redirect(flask.url_for("index"))
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -145,13 +147,12 @@ def put_memo(dt, mem):
        dt: Datetime (arrow) object
        mem: Text of memo
     """
-    print("put mem")
     record = { "type": "dated_memo", 
            "date": dt,
            "text": mem
         }
     collection.insert(record)
-    return 
+    return
 
 @app.route('/deletememo', methods=['GET', 'POST'])
 def delete_memo():
